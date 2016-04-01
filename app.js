@@ -10,18 +10,15 @@ var session = require('express-session');
 var MongoStore = require('connect-mongo')(session);
 
 // connect to mongodb
-mongoose.connect('mongodb://localhost/iotdb', function(err) {
+mongoose.connect('mongodb://localhost/qbitsdb', function(err) {
     if (err) throw err;
     console.log("Successfully connnected to mongodb");
 });
 
-var user = require('./models/users');
 var dataset = require('./models/datasets');
 
 // Loading routes
-var routes = require('./routes/index');
-var users = require('./routes/users');
-var datasets = require('./routes.datasets');
+var datasets = require('./routes/datasets');
 
 var app = express();
 
@@ -57,8 +54,6 @@ app.use(methodOverride(function(req, res){
 }));
 
 // Register routes
-app.use('/', routes);
-app.use('/users', users);
 app.use('/datasets', datasets);
 
 // catch 404 and forward to error handler
